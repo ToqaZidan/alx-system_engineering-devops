@@ -1,14 +1,16 @@
-!/usr/bin/env bash
-connect to a server using a private key
+#!/usr/bin/env bash
+# connect to a server using a private key
 
-# Specify the server address
-server_address="18.210.19.138"
+# # Specify the server address
+# server_address="18.210.19.138"
 
-# Specify the private key file
-private_key="~/.ssh/school"
+# # Specify the private key file
+# private_key="~/.ssh/school"
 
-# Specify the username
-username="ubuntu"
+# # Specify the username
+# username="ubuntu"
 
-# Use ssh with single-character flags to connect to the server
-ssh -i"$private_key" "$username"@"$server_address"
+# # Use ssh with single-character flags to connect to the server
+# ssh -i "$private_key" "$username"@"$server_address"
+
+ssh -i ~/.ssh/school ubuntu@18.210.19.138
