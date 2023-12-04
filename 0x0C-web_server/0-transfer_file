@@ -1,4 +1,4 @@
-#!/usr/bin/ env bash
+#!/usr/bin/env bash
 # Send a file from client to server using scp
 
 
