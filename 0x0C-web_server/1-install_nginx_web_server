@@ -17,3 +17,15 @@ sudo nginx -t
 # Restart Nginx
 sudo service nginx restart
 
+# Wait for Nginx to start
+sleep 5
+
+# Check the content of the index.html file
+content=$(curl -s http://localhost)
+
+# Compare the content with the expected string
+if [[ "$content" == *"Hello World!"* ]]; then
+    echo "Nginx installation and configuration completed successfully."
+else
+    echo "Error: Nginx configuration or content check failed."
+fi
