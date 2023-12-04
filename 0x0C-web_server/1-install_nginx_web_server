@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Install Nginx on Web-Sever-01
+
+# Update Packages before Installations
+sudo apt-get update
+sudo apt-get -y install nginx
+
+# Configur the Uncomplicated Firewall (UFW) to allow incoming traffic for the Nginx HTTP service
+sudo ufw allow 'Nginx HTTP'
+
+# Creat an index.html page
+echo "Hello World!" | sudo tee /var/www/html/index.html
+
+# Test Nginx configurations to catch Syntax errors
+sudo nginx -t
+
+# Restart Nginx
+sudo service nginx start
