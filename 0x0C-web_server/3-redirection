@@ -8,9 +8,29 @@ sudo apt-get install -y nginx
 # Create an index.html page
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
-# Performe a 301 Redirection
-string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/ToqaZidan permanent;"
-sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+# Create a new HTML file for redirection
+echo "<html><head><meta http-equiv='refresh' content='0;url=http://example.com/new-page'></head></html>" | sudo tee /var/www/html/redirect_me.html
+
+# Configure Nginx to perform a 301 Redirect for /redirect_me
+echo "server {
+    listen 80;
+    server_name localhost;
+
+    location /redirect_me {
+        return 301 http://example.com/new-page;
+    }
+
+    location / {
+        root /var/www/html;
+        index index.html;
+    }
+}" | sudo tee /etc/nginx/sites-available/default
+
+# Remove default Nginx site to avoid conflicts
+sudo rm /etc/nginx/sites-enabled/default
+
+# Test Nginx configurations to catch Syntax errors
+sudo nginx -t
 
 # Restart Nginx service
 sudo service nginx restart
