@@ -8,8 +8,6 @@ sudo apt-get -y install nginx
 # Configur the Uncomplicated Firewall (UFW) to allow incoming traffic for the Nginx HTTP service
 sudo ufw allow 'Nginx HTTP'
 
-# Creat an index.html page
-# echo "Hello World!" | sudo tee /var/www/html/index.html
 sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
 
 # Test Nginx configurations to catch Syntax errors
