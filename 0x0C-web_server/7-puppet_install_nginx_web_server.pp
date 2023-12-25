@@ -4,19 +4,18 @@ package { 'nginx':
 }
 
 
-file { '/var/www/html/index.html':
-  ensure  => 'file',
-  content => 'Hello World!',
-  mode    => '0644',
-  require => Package['nginx'],
+file_line { 'install':
+  ensure => 'present',
+  path   => '/etc/nginx/sites-enabled/default',
+  after  => 'listen 80 default_server;',
+  line   => 'rewrite ^/redirect_me https://www.github.com/ToqaZidan permanent;',
 }
 
-exec { 'append_redirect_me':
-  command => "/usr/bin/sed -i '/^}$/i \\\n\tlocation \\/redirect_me {return 301 https:\\/\\/www.youtube.com}' /etc/nginx/sites-available/default",
-  }
+file { '/var/www/html/index.html':
+  content => 'Hello World!',
+}
 
 service { 'nginx':
-  ensure  => 'running',
-  enable  => true,
+  ensure  => running,
   require => Package['nginx'],
 }
